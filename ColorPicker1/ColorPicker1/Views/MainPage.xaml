@@ -5,7 +5,4 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="ColorPicker1.Views.MainPage"
              Title="MainPage">
-  <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
-    <Label Text="{Binding Title}" />
-  </StackLayout>
 </ContentPage>

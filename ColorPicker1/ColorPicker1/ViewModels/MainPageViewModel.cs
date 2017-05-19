@@ -3,6 +3,7 @@ using Prism.Mvvm;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace ColorPicker1.ViewModels
@@ -18,7 +19,13 @@ namespace ColorPicker1.ViewModels
 
         public MainPageViewModel()
         {
+            Debug.WriteLine($"**** {this.GetType().Name}.{nameof(MainPageViewModel)}:  ctor");
+            Title = "Color Pickers";
+        }
 
+        ~MainPageViewModel()
+        {
+            Debug.WriteLine($"**** {this.GetType().Name}.{nameof(MainPageViewModel)}:  dtor");
         }
 
         public void OnNavigatedFrom(NavigationParameters parameters)
@@ -33,8 +40,7 @@ namespace ColorPicker1.ViewModels
 
         public void OnNavigatedTo(NavigationParameters parameters)
         {
-            if (parameters.ContainsKey("title"))
-                Title = (string)parameters["title"] + " and Prism";
+          
         }
     }
 }
