@@ -19,6 +19,7 @@ namespace ColorPicker1
         {
             Container.RegisterTypeForNavigation<NavigationPage>();
             Container.RegisterTypeForNavigation<MainPage>();
+            Container.RegisterTypeForNavigation<BoxViewPickerPage>();
         }
     }
 }

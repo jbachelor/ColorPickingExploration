@@ -3,13 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="ColorPicker1.Views.MainPage"
+             x:Class="ColorPicker1.Views.BoxViewPickerPage"
              Title="{Binding Title}">
     <StackLayout x:Name="OuterStackLayout"
-                 HorizontalOptions="Center"
-                 VerticalOptions="Center">
-        <Button Text="BoxView Picker"
-                Command="{Binding NavToBoxViewPickerCommand}" />
+                 AutomationId="OuterStackLayout"
+                 Orientation="Vertical">
+
     </StackLayout>
 </ContentPage>
     
