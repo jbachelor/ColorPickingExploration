@@ -46,7 +46,7 @@ namespace ColorPicker1.Views
 
         class GestureEffect : RoutingEffect
         {
-            public GestureEffect() : base("HunterIndustries.TapWithPositionGestureEffect")
+            public GestureEffect() : base("DigiPug.TapWithPositionGestureEffect")
             {
                 Debug.WriteLine($"**** {this.GetType().Name}.{nameof(GestureEffect)}:  ctor");
             }

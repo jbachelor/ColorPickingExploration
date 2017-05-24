@@ -20,7 +20,7 @@ using ColorPicker1.Views;
 using Prism.Commands;
 using ColorPicker1.Models;
 
-[assembly: ResolutionGroupName("HunterIndustries")]
+[assembly: ResolutionGroupName("DigiPug")]
 [assembly: ExportEffect(typeof(TapWithPositionGestureEffect), nameof(TapWithPositionGestureEffect))]
 namespace ColorPicker1.Droid.Effects
 {

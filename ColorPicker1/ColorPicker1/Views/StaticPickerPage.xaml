@@ -10,10 +10,10 @@
                  BackgroundColor="Gray">
         <Label Text="I'm on top of the ColorImageStack" />
         <StackLayout x:Name="ColorImageStack"
-                     VerticalOptions="FillAndExpand"
+                     VerticalOptions="CenterAndExpand"
                      BackgroundColor="Beige">
-            <skiViews:SKCanvasView x:Name="ColorCanvasView"
-                                   g:Gesture.Tapped="{Binding CanvasTappedCommand}"/>
+            <Image Source="color_picker_bitmap" 
+                   g:Gesture.Tapped="{Binding CanvasTappedCommand}"/>
         </StackLayout>
         <Label Text="I'm under the ColorImageStack" />
     </StackLayout>
