@@ -1,4 +1,5 @@
-﻿using Prism.Commands;
+﻿using ColorPicker1.Models;
+using Prism.Commands;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
@@ -10,15 +11,15 @@ namespace ColorPicker1.ViewModels
 {
     public class StaticPickerPageViewModel : BindableBase
     {
-        public DelegateCommand<Point> CanvasTappedCommand { get; set; }
+        public DelegateCommand<SimplePoint> CanvasTappedCommand { get; set; }
 
         public StaticPickerPageViewModel()
         {
             Debug.WriteLine($"**** {this.GetType().Name}.{nameof(StaticPickerPageViewModel)}:  ctor");
-            //CanvasTappedCommand = new DelegateCommand<Point>(OnCanvasTapped);
+            CanvasTappedCommand = new DelegateCommand<SimplePoint>(OnCanvasTapped);
         }
 
-        private void OnCanvasTapped(Point pointTapped)
+        private void OnCanvasTapped(SimplePoint pointTapped)
         {
             Debug.WriteLine($"**** {this.GetType().Name}.{nameof(OnCanvasTapped)}:  X = {pointTapped.X}, Y = {pointTapped.Y}");
         }

@@ -17,6 +17,8 @@ using Android.Support.V4.View;
 using Android.Util;
 using System.ComponentModel;
 using ColorPicker1.Views;
+using Prism.Commands;
+using ColorPicker1.Models;
 
 [assembly: ResolutionGroupName("AvalonSoftware")]
 [assembly: ExportEffect(typeof(TapWithPositionGestureEffect), nameof(TapWithPositionGestureEffect))]
@@ -26,7 +28,7 @@ namespace ColorPicker1.Droid.Effects
     {
         private GestureDetectorCompat gestureRecognizer;
         private readonly InternalGestureDetector tapDetector;
-        private Command<Point> tapWithPositionCommand;
+        private DelegateCommand<SimplePoint> tapWithPositionCommand;
         private DisplayMetrics displayMetrics;
 
         public TapWithPositionGestureEffect()
@@ -36,7 +38,7 @@ namespace ColorPicker1.Droid.Effects
             {
                 TapAction = motionEvent =>
                 {
-                    sys.Debug.WriteLine($"**** {this.GetType().Name}.{nameof(TapWithPositionGestureEffect)}:  tapDetector motionEvent");
+                    sys.Debug.WriteLine($"**** {this.GetType().Name}.motionEvent:  tapDetector motionEvent");
 
                     var tap = tapWithPositionCommand;
                     if (tap != null)
@@ -44,8 +46,14 @@ namespace ColorPicker1.Droid.Effects
                         var x = motionEvent.GetX();
                         var y = motionEvent.GetY();
 
-                        var point = PxToDp(new Point(x, y));
-                        sys.Debug.WriteLine($"\t**** Tap detected at {x} x {y} in forms: {point.X} x {point.Y}");
+                        var xfPoint = PxToDp(new Point(x, y));
+                        var point = new SimplePoint
+                        {
+                            X = xfPoint.X,
+                            Y = xfPoint.Y
+                        };
+
+                        sys.Debug.WriteLine($"\t**** {this.GetType().Name}.motionEvent:  Tap detected at {x} x {y} in forms");
                         if (tap.CanExecute(point))
                             tap.Execute(point);
                     }

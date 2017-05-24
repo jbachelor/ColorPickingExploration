@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ColorPicker1.ViewModels
 {
@@ -30,7 +31,7 @@ namespace ColorPicker1.ViewModels
             _navigationService = navigationService;
 
             NavToBoxViewPickerCommand = new DelegateCommand(NavToBoxViewPicker);           
-            NavToStaticPickerCommand = new DelegateCommand(NavToStaticPicker);
+            NavToStaticPickerCommand = new DelegateCommand(NavToStaticPickerAsync);
 
             Title = "Color Picker Menu";
         }
@@ -46,10 +47,10 @@ namespace ColorPicker1.ViewModels
             _navigationService.NavigateAsync(nameof(BoxViewPickerPage));
         }
 
-        private void NavToStaticPicker()
+        private async void NavToStaticPickerAsync()
         {
-            Debug.WriteLine($"**** {this.GetType().Name}.{nameof(NavToStaticPicker)}");
-            _navigationService.NavigateAsync(nameof(StaticPickerPage));
+            Debug.WriteLine($"**** {this.GetType().Name}.{nameof(NavToStaticPickerAsync)}");
+            await _navigationService.NavigateAsync(nameof(StaticPickerPage));
         }
 
         #region INavigationAware
