@@ -16,20 +16,16 @@ namespace ColorPicker1.Views
 
         public static DelegateCommand<SimplePoint> GetCommand(BindableObject view)
         {
-            Debug.WriteLine($"**** {nameof(Gesture)}.{nameof(GetCommand)}");
             return (DelegateCommand<SimplePoint>)view.GetValue(TappedProperty);
         }
 
         public static void SetTapped(BindableObject view, DelegateCommand<SimplePoint> value)
         {
-            Debug.WriteLine($"**** {nameof(Gesture)}.{nameof(SetTapped)}");
             view.SetValue(TappedProperty, value);
         }
 
         private static void CommandChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            Debug.WriteLine($"**** {nameof(Gesture)}.{nameof(CommandChanged)}");
-
             var view = bindable as View;
             if (view != null)
             {
@@ -39,8 +35,6 @@ namespace ColorPicker1.Views
 
         private static GestureEffect GetOrCreateEffect(View view)
         {
-            Debug.WriteLine($"**** {nameof(Gesture)}.{nameof(GetOrCreateEffect)}");
-
             var effect = (GestureEffect)view.Effects.FirstOrDefault(e => e is GestureEffect);
             if (effect == null)
             {
@@ -52,7 +46,7 @@ namespace ColorPicker1.Views
 
         class GestureEffect : RoutingEffect
         {
-            public GestureEffect() : base("AvalonSoftware.TapWithPositionGestureEffect")
+            public GestureEffect() : base("HunterIndustries.TapWithPositionGestureEffect")
             {
                 Debug.WriteLine($"**** {this.GetType().Name}.{nameof(GestureEffect)}:  ctor");
             }

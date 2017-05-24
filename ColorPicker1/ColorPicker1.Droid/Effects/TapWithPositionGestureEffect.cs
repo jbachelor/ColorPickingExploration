@@ -20,7 +20,7 @@ using ColorPicker1.Views;
 using Prism.Commands;
 using ColorPicker1.Models;
 
-[assembly: ResolutionGroupName("AvalonSoftware")]
+[assembly: ResolutionGroupName("HunterIndustries")]
 [assembly: ExportEffect(typeof(TapWithPositionGestureEffect), nameof(TapWithPositionGestureEffect))]
 namespace ColorPicker1.Droid.Effects
 {
@@ -33,13 +33,10 @@ namespace ColorPicker1.Droid.Effects
 
         public TapWithPositionGestureEffect()
         {
-            sys.Debug.WriteLine($"**** {this.GetType().Name}.{nameof(TapWithPositionGestureEffect)}:  ctor");
             tapDetector = new InternalGestureDetector
             {
                 TapAction = motionEvent =>
                 {
-                    sys.Debug.WriteLine($"**** {this.GetType().Name}.motionEvent:  tapDetector motionEvent");
-
                     var tap = tapWithPositionCommand;
                     if (tap != null)
                     {
@@ -53,7 +50,6 @@ namespace ColorPicker1.Droid.Effects
                             Y = xfPoint.Y
                         };
 
-                        sys.Debug.WriteLine($"\t**** {this.GetType().Name}.motionEvent:  Tap detected at {x} x {y} in forms");
                         if (tap.CanExecute(point))
                             tap.Execute(point);
                     }
@@ -63,22 +59,22 @@ namespace ColorPicker1.Droid.Effects
 
         private Point PxToDp(Point point)
         {
-            sys.Debug.WriteLine($"**** {this.GetType().Name}.{nameof(PxToDp)}:  point.X = {point.X}, point.Y = {point.Y}");
+            var originalX = point.X;
+            var originalY = point.Y;
             point.X = point.X / displayMetrics.Density;
             point.Y = point.Y / displayMetrics.Density;
-            sys.Debug.WriteLine($"\t**** {this.GetType().Name}.{nameof(PxToDp)}:  Returning point.X = {point.X}, point.Y = {point.Y} due to displayMetrics.Density = {displayMetrics.Density}");
+
+            sys.Debug.WriteLine($"**** {this.GetType().Name}.{nameof(PxToDp)}:  Adjusting raw point (x = {originalX}, y = {originalY}) to x = {point.X}, y = {point.Y} based on displayMetrics.Density of {displayMetrics.Density}");
             return point;
         }
 
         protected override void OnElementPropertyChanged(PropertyChangedEventArgs args)
         {
-            sys.Debug.WriteLine($"**** {this.GetType().Name}.{nameof(OnElementPropertyChanged)}");
             tapWithPositionCommand = Gesture.GetCommand(Element);
         }
 
         protected override void OnAttached()
         {
-            sys.Debug.WriteLine($"**** {this.GetType().Name}.{nameof(OnAttached)}");
             var control = Control ?? Container;
 
             var context = control.Context;
@@ -94,15 +90,11 @@ namespace ColorPicker1.Droid.Effects
 
         private void ControlOnTouch(object sender, View.TouchEventArgs touchEventArgs)
         {
-            sys.Debug.WriteLine($"**** {this.GetType().Name}.{nameof(ControlOnTouch)}");
-
             gestureRecognizer?.OnTouchEvent(touchEventArgs.Event);
         }
 
         protected override void OnDetached()
         {
-            sys.Debug.WriteLine($"**** {this.GetType().Name}.{nameof(OnDetached)}");
-
             var control = Control ?? Container;
             control.Touch -= ControlOnTouch;
         }
@@ -115,7 +107,6 @@ namespace ColorPicker1.Droid.Effects
 
             public override bool OnSingleTapUp(MotionEvent e)
             {
-                sys.Debug.WriteLine($"**** {this.GetType().Name}.{nameof(OnSingleTapUp)}");
                 TapAction?.Invoke(e);
                 return true;
             }
