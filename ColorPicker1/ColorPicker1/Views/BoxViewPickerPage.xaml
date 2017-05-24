@@ -5,10 +5,12 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="ColorPicker1.Views.BoxViewPickerPage"
              Title="{Binding Title}">
-    <StackLayout x:Name="OuterStackLayout"
-                 AutomationId="OuterStackLayout"
-                 Orientation="Vertical">
-
-    </StackLayout>
+    <Grid x:Name="OuterGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+    </Grid>
 </ContentPage>
     

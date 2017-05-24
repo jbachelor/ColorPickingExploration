@@ -10,6 +10,8 @@
                  VerticalOptions="Center">
         <Button Text="BoxView Picker"
                 Command="{Binding NavToBoxViewPickerCommand}" />
+        <Button Text="Static Picker"
+                Command="{Binding NavToStaticPickerCommand}" />
     </StackLayout>
 </ContentPage>
     

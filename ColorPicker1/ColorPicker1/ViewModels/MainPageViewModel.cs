@@ -14,6 +14,7 @@ namespace ColorPicker1.ViewModels
         readonly INavigationService _navigationService;
 
         public DelegateCommand NavToBoxViewPickerCommand { get; set; }
+        public DelegateCommand NavToStaticPickerCommand { get; set; }
 
         private string _title;
         public string Title
@@ -28,7 +29,9 @@ namespace ColorPicker1.ViewModels
 
             _navigationService = navigationService;
 
-            NavToBoxViewPickerCommand = new DelegateCommand(NavToBoxViewPicker);
+            NavToBoxViewPickerCommand = new DelegateCommand(NavToBoxViewPicker);           
+            NavToStaticPickerCommand = new DelegateCommand(NavToStaticPicker);
+
             Title = "Color Picker Menu";
         }
 
@@ -41,6 +44,12 @@ namespace ColorPicker1.ViewModels
         {
             Debug.WriteLine($"**** {this.GetType().Name}.{nameof(NavToBoxViewPicker)}");
             _navigationService.NavigateAsync(nameof(BoxViewPickerPage));
+        }
+
+        private void NavToStaticPicker()
+        {
+            Debug.WriteLine($"**** {this.GetType().Name}.{nameof(NavToStaticPicker)}");
+            _navigationService.NavigateAsync(nameof(StaticPickerPage));
         }
 
         #region INavigationAware

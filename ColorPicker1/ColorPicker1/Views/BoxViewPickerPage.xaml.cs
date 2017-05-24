@@ -17,13 +17,14 @@ namespace ColorPicker1.Views
             swatch.Start();
 
             StackLayout colorStack = CreateColorStack();
-            //StackLayout brightnessSliderStack = CreateBrightnessSliderLayout();
+            StackLayout brightnessSliderStack = CreateBrightnessSliderLayout();
 
-            OuterStackLayout.Children.Add(colorStack);
+            //OuterStackLayout.Children.Add(colorStack);
             //OuterStackLayout.Children.Add(brightnessSliderStack);
 
             Label timeLabel = CreateTimeLabel();
-            OuterStackLayout.Children.Add(timeLabel);
+            //OuterStackLayout.Children.Add(timeLabel);
+            
         }
 
         private Label CreateTimeLabel()
