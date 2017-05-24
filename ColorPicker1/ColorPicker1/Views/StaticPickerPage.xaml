@@ -1,20 +1,28 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:skiViews="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
-             xmlns:g="clr-namespace:ColorPicker1.Views;assembly=ColorPicker1"
-             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
-             prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="ColorPicker1.Views.StaticPickerPage">
-    <StackLayout x:Name="OuterStack"
-                 BackgroundColor="Gray">
-        <Label Text="I'm on top of the ColorImageStack" />
-        <StackLayout x:Name="ColorImageStack"
-                     VerticalOptions="CenterAndExpand"
-                     BackgroundColor="Beige">
-            <Image Source="color_picker_bitmap" 
-                   g:Gesture.Tapped="{Binding CanvasTappedCommand}"/>
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:skiViews="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
+    xmlns:g="clr-namespace:ColorPicker1.Views;assembly=ColorPicker1"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    x:Class="ColorPicker1.Views.StaticPickerPage">
+    <StackLayout
+        x:Name="OuterStack"
+        BackgroundColor="Gray">
+        <Label
+            Text="I'm on top of the ColorImageStack" />
+        <StackLayout
+            x:Name="ColorImageStack"
+            VerticalOptions="CenterAndExpand"
+            BackgroundColor="Beige">
+            <Image
+                Source="colorpickerspectrum"
+                x:Name="ColorPicker"
+                g:Gesture.Tapped="{Binding CanvasTappedCommand}" />
         </StackLayout>
-        <Label Text="I'm under the ColorImageStack" />
+        <BoxView x:Name="ColorSampleBox" Color="{Binding SelectedColor}" HeightRequest="75" />
+        <Label
+            Text="I'm under the ColorImageStack" />
     </StackLayout>
 </ContentPage>

@@ -12,16 +12,28 @@ namespace ColorPicker1.ViewModels
     public class StaticPickerPageViewModel : BindableBase
     {
         public DelegateCommand<SimplePoint> CanvasTappedCommand { get; set; }
+        IImageSourceConverter _imageSourceConverter;
 
-        public StaticPickerPageViewModel()
+        private Color _selectedColor;
+        public Color SelectedColor
         {
-            Debug.WriteLine($"**** {this.GetType().Name}.{nameof(StaticPickerPageViewModel)}:  ctor");
-            CanvasTappedCommand = new DelegateCommand<SimplePoint>(OnCanvasTapped);
+            get { return _selectedColor; }
+            set { SetProperty(ref _selectedColor, value); }
         }
 
-        private void OnCanvasTapped(SimplePoint pointTapped)
+        public StaticPickerPageViewModel(IImageSourceConverter imageSourceConverter)
         {
-            Debug.WriteLine($"**** {this.GetType().Name}.{nameof(OnCanvasTapped)}:  X = {pointTapped.X}, Y = {pointTapped.Y}");
+            Debug.WriteLine($"**** {this.GetType().Name}.{nameof(StaticPickerPageViewModel)}:  ctor");
+
+            CanvasTappedCommand = new DelegateCommand<SimplePoint>(OnCanvasTappedAsync);
+            _imageSourceConverter = imageSourceConverter;
+        }
+
+        private async void OnCanvasTappedAsync(SimplePoint pointTapped)
+        {
+            Debug.WriteLine($"**** {this.GetType().Name}.{nameof(OnCanvasTappedAsync)}:  X = {pointTapped.X}, Y = {pointTapped.Y}");
+
+            SelectedColor = await _imageSourceConverter.ConvertAsync(Globals.COLOR_IMAGE.Source, pointTapped.X, pointTapped.Y);
         }
     }
 }
