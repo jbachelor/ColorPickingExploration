@@ -49,14 +49,9 @@ namespace ColorPicker1.Views
         {
             Debug.WriteLine($"**** {this.GetType().Name}.{nameof(InitializeSkiaCanvas)}");
 
-            canvasView = new SKCanvasView
-            {
-                BackgroundColor = Color.Aqua,
-                HorizontalOptions = LayoutOptions.FillAndExpand,
-                VerticalOptions = LayoutOptions.FillAndExpand,
-            };
-            canvasView.PaintSurface += OnCanvasViewPaintSurface;
-            ColorImageStack.Children.Add(canvasView);
+            ColorCanvasView.PaintSurface += OnCanvasViewPaintSurface;
+            ColorCanvasView.VerticalOptions = LayoutOptions.FillAndExpand;
+            ColorImageStack.Children.Add(ColorCanvasView);
         }
 
         public void AddColorPickerImage()

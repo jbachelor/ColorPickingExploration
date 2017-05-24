@@ -7,13 +7,14 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="ColorPicker1.Views.StaticPickerPage">
     <StackLayout x:Name="OuterStack"
-                 BackgroundColor="Gray"
-                 HorizontalOptions="FillAndExpand"
-                 VerticalOptions="FillAndExpand">
+                 BackgroundColor="Gray">
+        <Label Text="I'm on top of the ColorImageStack" />
         <StackLayout x:Name="ColorImageStack"
-                     HorizontalOptions="FillAndExpand"
                      VerticalOptions="FillAndExpand"
-                     g:Gesture.Tapped="{Binding CanvasTappedCommand}"/>
-        <Label Text="I'm a label, I'm a label" />
+                     BackgroundColor="Beige">
+            <skiViews:SKCanvasView x:Name="ColorCanvasView"
+                                   g:Gesture.Tapped="{Binding CanvasTappedCommand}"/>
+        </StackLayout>
+        <Label Text="I'm under the ColorImageStack" />
     </StackLayout>
 </ContentPage>
