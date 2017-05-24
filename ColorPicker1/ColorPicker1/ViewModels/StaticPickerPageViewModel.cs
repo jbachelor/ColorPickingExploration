@@ -10,7 +10,8 @@ namespace ColorPicker1.ViewModels
 {
     public class StaticPickerPageViewModel : BindableBase
     {
-        //public DelegateCommand<Point> CanvasTappedCommand { get; set; }
+        public DelegateCommand<Point> CanvasTappedCommand { get; set; }
+
         public StaticPickerPageViewModel()
         {
             Debug.WriteLine($"**** {this.GetType().Name}.{nameof(StaticPickerPageViewModel)}:  ctor");
