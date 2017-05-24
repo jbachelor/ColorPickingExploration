@@ -17,6 +17,7 @@ namespace ColorPicker1.Views
         {
             Debug.WriteLine($"**** {this.GetType().Name}.{nameof(StaticPickerPage)}:  ctor");
             InitializeComponent();
+            Debug.WriteLine($"**** {this.GetType().Name}.{nameof(StaticPickerPage)}:  Finished with InitializeComponent.");
 
             InitializeSkiaCanvas();
             AddColorPickerImage();
@@ -70,16 +71,6 @@ namespace ColorPicker1.Views
             {
                 resourceBitmap = SKBitmap.Decode(skStream);
             }
-
-            // Add tap gesture recognizer
-            //TapGestureRecognizer tapRecognizer = new TapGestureRecognizer();
-            //tapRecognizer.Tapped += async (sender, args) =>
-            //{
-            //    Debug.WriteLine($"**** {this.GetType().Name}:  I think the image was tapped!");
-            //    SKCanvasView canvasView = (SKCanvasView)sender;
-
-            //};
-            //canvasView.GestureRecognizers.Add(tapRecognizer);
         }
     }
 }

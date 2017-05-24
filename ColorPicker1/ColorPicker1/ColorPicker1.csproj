@@ -39,6 +39,7 @@
     <Compile Include="ViewModels\BoxViewPickerPageViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\StaticPickerPageViewModel.cs" />
+    <Compile Include="Views\Gesture.cs" />
     <Compile Include="Views\StaticPickerPage.xaml.cs">
       <DependentUpon>StaticPickerPage.xaml</DependentUpon>
     </Compile>
