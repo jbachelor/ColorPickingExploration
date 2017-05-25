@@ -57,15 +57,16 @@ namespace ColorPicker1.Droid.Effects
             };
         }
 
-        private Point PxToDp(Point point)
+        private SimplePoint PxToDp(Point point)
         {
-            var originalX = point.X;
-            var originalY = point.Y;
-            point.X = point.X / displayMetrics.Density;
-            point.Y = point.Y / displayMetrics.Density;
+            var simplePoint = new SimplePoint();
+            simplePoint.RawX = point.X;
+            simplePoint.RawY = point.Y;
+            simplePoint.X = point.X / displayMetrics.Density;
+            simplePoint.Y = point.Y / displayMetrics.Density;
 
-            sys.Debug.WriteLine($"**** {this.GetType().Name}.{nameof(PxToDp)}:  Adjusting raw point (x = {originalX}, y = {originalY}) to x = {point.X}, y = {point.Y} based on displayMetrics.Density of {displayMetrics.Density}");
-            return point;
+            sys.Debug.WriteLine($"**** {this.GetType().Name}.{nameof(PxToDp)}:  Adjusting raw point (x = {simplePoint.RawX}, y = {simplePoint.RawY}) to x = {simplePoint.X}, y = {simplePoint.Y} based on displayMetrics.Density of {displayMetrics.Density}");
+            return simplePoint;
         }
 
         protected override void OnElementPropertyChanged(PropertyChangedEventArgs args)

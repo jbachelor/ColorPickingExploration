@@ -21,7 +21,18 @@
                 x:Name="ColorPicker"
                 g:Gesture.Tapped="{Binding CanvasTappedCommand}" />
         </StackLayout>
-        <BoxView x:Name="ColorSampleBox" Color="{Binding SelectedColor}" HeightRequest="75" />
+        <Label
+            x:Name="ColorSampleBoxRaw"
+            Text="Raw Position"
+            TextColor="White"
+            BackgroundColor="{Binding SelectedColorRaw}"
+            HeightRequest="75" />
+        <Label
+            x:Name="ColorSampleBox"
+            Text="Adjsuted Position"
+            TextColor = "White"
+            BackgroundColor="{Binding SelectedColor}"
+            HeightRequest="75" />
         <Label
             Text="I'm under the ColorImageStack" />
     </StackLayout>

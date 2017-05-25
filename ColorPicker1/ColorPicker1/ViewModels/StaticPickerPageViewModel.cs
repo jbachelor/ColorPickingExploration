@@ -21,6 +21,13 @@ namespace ColorPicker1.ViewModels
             set { SetProperty(ref _selectedColor, value); }
         }
 
+        private Color _selectedColorRaw;
+        public Color SelectedColorRaw
+        {
+            get { return _selectedColorRaw; }
+            set { SetProperty(ref _selectedColorRaw, value); }
+        }
+
         public StaticPickerPageViewModel(IImageSourceConverter imageSourceConverter)
         {
             Debug.WriteLine($"**** {this.GetType().Name}.{nameof(StaticPickerPageViewModel)}:  ctor");
@@ -31,8 +38,9 @@ namespace ColorPicker1.ViewModels
 
         private async void OnCanvasTappedAsync(SimplePoint pointTapped)
         {
-            Debug.WriteLine($"**** {this.GetType().Name}.{nameof(OnCanvasTappedAsync)}:  X = {pointTapped.X}, Y = {pointTapped.Y}");
+            Debug.WriteLine($"**** {this.GetType().Name}.{nameof(OnCanvasTappedAsync)}");
 
+            SelectedColorRaw = await _imageSourceConverter.ConvertAsync(Globals.COLOR_IMAGE.Source, pointTapped.RawX, pointTapped.RawY);
             SelectedColor = await _imageSourceConverter.ConvertAsync(Globals.COLOR_IMAGE.Source, pointTapped.X, pointTapped.Y);
         }
     }

@@ -2,7 +2,9 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Android.Content;
+using Android.Content.Res;
 using Android.Graphics;
+using Android.Util;
 using ColorPicker1.Droid.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
@@ -19,9 +21,17 @@ namespace ColorPicker1.Droid.Services
 
             Bitmap bitmap = await GetBitmap(imageSource);
 
+            Resources resource = Forms.Context.Resources;
+            DisplayMetrics metrics = resource.DisplayMetrics;
+            var dpX = (int)x * ((float)metrics.DensityDpi / 160);
+            var dpY = (int)y * ((float)metrics.DensityDpi / 160);
+
+
             var intX = (int)x;
             var intY = (int)y;
-            var colorInt = bitmap.GetPixel(intX, intY);
+
+
+            var colorInt = bitmap.GetPixel((int)dpX, (int)dpY);
 
             Xamarin.Forms.Color color = ConvertDecimalToColor(colorInt);
 
