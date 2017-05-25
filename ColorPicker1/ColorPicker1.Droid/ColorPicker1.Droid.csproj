@@ -159,7 +159,10 @@
     <AndroidResource Include="Resources\drawable\color_picker_bitmap.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Services\" />
+    <AndroidResource Include="Resources\drawable\metrocolors.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\colorwheel.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

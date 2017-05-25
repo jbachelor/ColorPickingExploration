@@ -28,6 +28,20 @@ namespace ColorPicker1.ViewModels
             set { SetProperty(ref _selectedColorRaw, value); }
         }
 
+        private string _labelText1;
+        public string LabelText1
+        {
+            get { return _labelText1; }
+            set { SetProperty(ref _labelText1, value); }
+        }
+
+        private string _labelText2;
+        public string LabelText2
+        {
+            get { return _labelText2; }
+            set { SetProperty(ref _labelText2, value); }
+        }
+
         public StaticPickerPageViewModel(IImageSourceConverter imageSourceConverter)
         {
             Debug.WriteLine($"**** {this.GetType().Name}.{nameof(StaticPickerPageViewModel)}:  ctor");
@@ -42,6 +56,9 @@ namespace ColorPicker1.ViewModels
 
             SelectedColorRaw = await _imageSourceConverter.ConvertAsync(Globals.COLOR_IMAGE.Source, pointTapped.RawX, pointTapped.RawY);
             SelectedColor = await _imageSourceConverter.ConvertAsync(Globals.COLOR_IMAGE.Source, pointTapped.X, pointTapped.Y);
+
+            LabelText1 = $"{pointTapped.RawX}, {pointTapped.RawY}:  H {SelectedColorRaw.Hue}, S {SelectedColorRaw.Saturation}, L {SelectedColorRaw.Luminosity}";
+            LabelText2 = $"{pointTapped.X}, {pointTapped.Y}:  H {SelectedColor.Hue}, S {SelectedColor.Saturation}, L {SelectedColor.Luminosity}";
         }
     }
 }

@@ -17,19 +17,19 @@
             VerticalOptions="CenterAndExpand"
             BackgroundColor="Beige">
             <Image
-                Source="colorpickerspectrum"
+                Source="metrocolors"
                 x:Name="ColorPicker"
                 g:Gesture.Tapped="{Binding CanvasTappedCommand}" />
         </StackLayout>
         <Label
             x:Name="ColorSampleBoxRaw"
-            Text="Raw Position"
+            Text="{Binding LabelText1}"
             TextColor="White"
             BackgroundColor="{Binding SelectedColorRaw}"
             HeightRequest="75" />
         <Label
             x:Name="ColorSampleBox"
-            Text="Adjsuted Position"
+            Text="{Binding LabelText2}"
             TextColor = "White"
             BackgroundColor="{Binding SelectedColor}"
             HeightRequest="75" />

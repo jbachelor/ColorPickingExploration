@@ -55,6 +55,7 @@ namespace ColorPicker1.Droid.Effects
                     }
                 }
             };
+            
         }
 
         private SimplePoint PxToDp(Point point)
