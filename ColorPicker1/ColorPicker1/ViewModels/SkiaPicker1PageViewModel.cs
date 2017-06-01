@@ -1,4 +1,6 @@
-﻿using Prism.Commands;
+using Prism.Commands;
+using SkiaSharp;
+using SkiaSharp.Views.Forms;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
@@ -12,15 +14,22 @@ namespace ColorPicker1.ViewModels
 	{
 		public DelegateCommand<SimplePoint> CanvasTappedCommand { get; set; }
 
-		public SkiaPicker1PageViewModel()
-		{
-			CanvasTappedCommand = new DelegateCommand<SimplePoint>(OnCanvassTapped);
-		}
-
-		void OnCanvassTapped(SimplePoint tapPoint)
-		{
-			Debug.WriteLine($"**** {this.GetType().Name}.{nameof(OnCanvassTapped)}:  raw x:{tapPoint.RawX}, raw y:{tapPoint.RawY}, x:{tapPoint.X}, y:{tapPoint.Y}");
+			CanvasTappedCommand = new DelegateCommand<SimplePoint>(OnCanvasTappedAsync);
 
 		}
-	}
+
+		private async void OnCanvasTappedAsync(SimplePoint pointTapped)
+		{
+			Debug.WriteLine($"**** {this.GetType().Name}.{nameof(OnCanvasTappedAsync)}");
+
+            foreach (var kvp in Globals.colorDictionary)
+            {
+                if (kvp.Key.Contains((float)pointTapped.X, (float)pointTapped.Y))
+                {
+                    Globals.ColorChosen = kvp.Value;
+                    break;
+                }
+            }   
+        }
+    }
 }

@@ -5,6 +5,7 @@
 	xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
     xmlns:g="clr-namespace:ColorPicker1.Views;assembly=ColorPicker1"
 	xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    xmlns:g="clr-namespace:ColorPicker1.Views;assembly=ColorPicker1"
 	prism:ViewModelLocator.AutowireViewModel="True"
 	x:Class="ColorPicker1.Views.SkiaPicker1Page">
 	<ScrollView>
@@ -24,7 +25,7 @@
 				<ColumnDefinition
 					Width="*" />
 			</Grid.ColumnDefinitions>
-			<skia:SKCanvasView
+			<skia:SKCanvasView 
 				Grid.Row="0"
 				Grid.ColumnSpan="2"
 				x:Name="ColorSpectrumCanvas"
@@ -46,6 +47,7 @@
 			<Label
 				Grid.Row="1"
 				Grid.Column="1"
+                x:Name="label1"
 				BackgroundColor="Gray"
 				VerticalTextAlignment="Center"
 				HorizontalTextAlignment="Center"
