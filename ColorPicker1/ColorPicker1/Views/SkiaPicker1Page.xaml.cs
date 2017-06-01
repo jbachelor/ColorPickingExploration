@@ -15,6 +15,7 @@ namespace ColorPicker1.Views
 		{
 			InitializeComponent();
 			LightnessSlider.Value = luminosity;
+
 		}
 
 		private void ColorSpectrumCanvas_PaintSurface(object sender, SKPaintSurfaceEventArgs e)
@@ -22,8 +23,19 @@ namespace ColorPicker1.Views
 			CreateHslSpectrum(e);
 		}
 
+        private void Handle_Tap(object sender, EventArgs e)
+		{
+			Debug.WriteLine("TAPPED");
+		}
+
+		private void CanvasTappedCommand(object sender, SKPaintSurfaceEventArgs e)
+		{
+            Debug.WriteLine("TAPPED");
+		}
+
 		private void CreateHslSpectrum(SKPaintSurfaceEventArgs e)
 		{
+            Globals.colorDictionary = new System.Collections.Generic.Dictionary<SKRect, SKColor>();
 			SKImageInfo info = e.Info;
 			SKSurface surface = e.Surface;
 			SKCanvas canvas = e.Surface.Canvas;
@@ -32,17 +44,16 @@ namespace ColorPicker1.Views
 			Debug.WriteLine($"**** {this.GetType().Name}.{nameof(CreateHslSpectrum)}:  info.Height={info.Height}, info.Width={info.Width}, halvsies={halvsies}");
 
 			canvas.Clear();
-
 			int hue;
 			int saturation;
 
-			float widthIncrement = info.Width / 361;
-			float heightIncrement = info.Height / 101;
+			Globals.widthIncrement = info.Width / 361;
+			Globals.heightIncrement = info.Height / 101;
 
 			float left = 0f;
 			float top = 0f;
-			float right = widthIncrement;
-			float bottom = heightIncrement;
+			float right = Globals.widthIncrement;
+			float bottom = Globals.heightIncrement;
 
 			using (SKPaint paint = new SKPaint())
 			{
@@ -61,25 +72,30 @@ namespace ColorPicker1.Views
 						SKRect colorRect = new SKRect(left, top, right, bottom);
 						paint.Color = color;
 
+                        Globals.colorDictionary.Add(colorRect, color);
+
 						canvas.DrawRect(colorRect, paint);
 
-						top += heightIncrement;
-						bottom += heightIncrement;
+						top += Globals.heightIncrement;
+						bottom += Globals.heightIncrement;
 					}
 
 					top = 0f;
-					bottom = heightIncrement;
+					bottom = Globals.heightIncrement;
 
-					left += widthIncrement;
-					right += widthIncrement;
+					left += Globals.widthIncrement;
+					right += Globals.widthIncrement;
 				}
 			}
+
 		}
 
 		void OnSliderValueChanged(object sender, ValueChangedEventArgs e)
 		{
 			int oldVal = (int)Math.Round(e.OldValue, 0);
 			int newVal = (int)Math.Round(e.NewValue, 0);
+
+            label1.BackgroundColor = Globals.ColorChosen.ToFormsColor();
 
 			if (oldVal != newVal)
 			{

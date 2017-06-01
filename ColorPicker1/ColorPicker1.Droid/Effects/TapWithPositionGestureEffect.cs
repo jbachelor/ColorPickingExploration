@@ -44,14 +44,9 @@ namespace ColorPicker1.Droid.Effects
                         var y = motionEvent.GetY();
 
                         var xfPoint = PxToDp(new Point(x, y));
-                        var point = new SimplePoint
-                        {
-                            X = xfPoint.X,
-                            Y = xfPoint.Y
-                        };
 
-                        if (tap.CanExecute(point))
-                            tap.Execute(point);
+                        if (tap.CanExecute(xfPoint))
+                            tap.Execute(xfPoint);
                     }
                 }
             };
@@ -63,8 +58,8 @@ namespace ColorPicker1.Droid.Effects
             var simplePoint = new SimplePoint();
             simplePoint.RawX = point.X;
             simplePoint.RawY = point.Y;
-            simplePoint.X = point.X / displayMetrics.Density;
-            simplePoint.Y = point.Y / displayMetrics.Density;
+            simplePoint.X = point.X;
+            simplePoint.Y = point.Y;
 
             sys.Debug.WriteLine($"**** {this.GetType().Name}.{nameof(PxToDp)}:  Adjusting raw point (x = {simplePoint.RawX}, y = {simplePoint.RawY}) to x = {simplePoint.X}, y = {simplePoint.Y} based on displayMetrics.Density of {displayMetrics.Density}");
             return simplePoint;
