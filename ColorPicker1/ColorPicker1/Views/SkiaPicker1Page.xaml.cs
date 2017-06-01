@@ -17,6 +17,11 @@ namespace ColorPicker1.Views
 			LightnessSlider.Value = luminosity;
 		}
 
+		void OnCanvasViewTapped(object sender, System.EventArgs e)
+		{
+			Debug.WriteLine($"**** {this.GetType().Name}.{nameof(OnCanvasViewTapped)}");
+		}
+
 		private void ColorSpectrumCanvas_PaintSurface(object sender, SKPaintSurfaceEventArgs e)
 		{
 			CreateHslSpectrum(e);
@@ -60,6 +65,8 @@ namespace ColorPicker1.Views
 
 						SKRect colorRect = new SKRect(left, top, right, bottom);
 						paint.Color = color;
+
+
 
 						canvas.DrawRect(colorRect, paint);
 

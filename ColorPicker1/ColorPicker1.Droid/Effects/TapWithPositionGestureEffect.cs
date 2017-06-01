@@ -24,94 +24,89 @@ using ColorPicker1.Models;
 [assembly: ExportEffect(typeof(TapWithPositionGestureEffect), nameof(TapWithPositionGestureEffect))]
 namespace ColorPicker1.Droid.Effects
 {
-    class TapWithPositionGestureEffect : PlatformEffect
-    {
-        private GestureDetectorCompat gestureRecognizer;
-        private readonly InternalGestureDetector tapDetector;
-        private DelegateCommand<SimplePoint> tapWithPositionCommand;
-        private DisplayMetrics displayMetrics;
+	public class TapWithPositionGestureEffect : PlatformEffect
+	{
+		private GestureDetectorCompat gestureRecognizer;
+		private readonly InternalGestureDetector tapDetector;
+		private DelegateCommand<SimplePoint> tapWithPositionCommand;
+		private DisplayMetrics displayMetrics;
 
-        public TapWithPositionGestureEffect()
-        {
-            tapDetector = new InternalGestureDetector
-            {
-                TapAction = motionEvent =>
-                {
-                    var tap = tapWithPositionCommand;
-                    if (tap != null)
-                    {
-                        var x = motionEvent.GetX();
-                        var y = motionEvent.GetY();
+		public TapWithPositionGestureEffect()
+		{
+			tapDetector = new InternalGestureDetector
+			{
+				TapAction = motionEvent =>
+				{
+					var tap = tapWithPositionCommand;
+					if (tap != null)
+					{
+						var x = motionEvent.GetX();
+						var y = motionEvent.GetY();
 
-                        var xfPoint = PxToDp(new Point(x, y));
-                        var point = new SimplePoint
-                        {
-                            X = xfPoint.X,
-                            Y = xfPoint.Y
-                        };
+						var xfPoint = PxToDp(new Point(x, y));
 
-                        if (tap.CanExecute(point))
-                            tap.Execute(point);
-                    }
-                }
-            };
-            
-        }
+						if (tap.CanExecute(xfPoint))
+							tap.Execute(xfPoint);
+					}
+				}
+			};
 
-        private SimplePoint PxToDp(Point point)
-        {
-            var simplePoint = new SimplePoint();
-            simplePoint.RawX = point.X;
-            simplePoint.RawY = point.Y;
-            simplePoint.X = point.X / displayMetrics.Density;
-            simplePoint.Y = point.Y / displayMetrics.Density;
+		}
 
-            sys.Debug.WriteLine($"**** {this.GetType().Name}.{nameof(PxToDp)}:  Adjusting raw point (x = {simplePoint.RawX}, y = {simplePoint.RawY}) to x = {simplePoint.X}, y = {simplePoint.Y} based on displayMetrics.Density of {displayMetrics.Density}");
-            return simplePoint;
-        }
+		private SimplePoint PxToDp(Point point)
+		{
+			var simplePoint = new SimplePoint();
+			simplePoint.RawX = point.X;
+			simplePoint.RawY = point.Y;
+			simplePoint.X = point.X / displayMetrics.Density;
+			simplePoint.Y = point.Y / displayMetrics.Density;
 
-        protected override void OnElementPropertyChanged(PropertyChangedEventArgs args)
-        {
-            tapWithPositionCommand = Gesture.GetCommand(Element);
-        }
+			sys.Debug.WriteLine($"**** {this.GetType().Name}.{nameof(PxToDp)}:  Adjusting raw point (x = {simplePoint.RawX}, y = {simplePoint.RawY}) to x = {simplePoint.X}, y = {simplePoint.Y} based on displayMetrics.Density of {displayMetrics.Density}");
+			return simplePoint;
+		}
 
-        protected override void OnAttached()
-        {
-            var control = Control ?? Container;
+		protected override void OnElementPropertyChanged(PropertyChangedEventArgs args)
+		{
+			tapWithPositionCommand = Gesture.GetCommand(Element);
+		}
 
-            var context = control.Context;
-            displayMetrics = context.Resources.DisplayMetrics;
-            tapDetector.Density = displayMetrics.Density;
+		protected override void OnAttached()
+		{
+			var control = Control ?? Container;
 
-            if (gestureRecognizer == null)
-                gestureRecognizer = new GestureDetectorCompat(context, tapDetector);
-            control.Touch += ControlOnTouch;
+			var context = control.Context;
+			displayMetrics = context.Resources.DisplayMetrics;
+			tapDetector.Density = displayMetrics.Density;
 
-            OnElementPropertyChanged(new PropertyChangedEventArgs(String.Empty));
-        }
+			if (gestureRecognizer == null)
+				gestureRecognizer = new GestureDetectorCompat(context, tapDetector);
+			control.Touch += ControlOnTouch;
 
-        private void ControlOnTouch(object sender, View.TouchEventArgs touchEventArgs)
-        {
-            gestureRecognizer?.OnTouchEvent(touchEventArgs.Event);
-        }
+			OnElementPropertyChanged(new PropertyChangedEventArgs(String.Empty));
+		}
 
-        protected override void OnDetached()
-        {
-            var control = Control ?? Container;
-            control.Touch -= ControlOnTouch;
-        }
+		private void ControlOnTouch(object sender, View.TouchEventArgs touchEventArgs)
+		{
+			gestureRecognizer?.OnTouchEvent(touchEventArgs.Event);
+		}
+
+		protected override void OnDetached()
+		{
+			var control = Control ?? Container;
+			control.Touch -= ControlOnTouch;
+		}
 
 
-        sealed class InternalGestureDetector : GestureDetector.SimpleOnGestureListener
-        {
-            public Action<MotionEvent> TapAction { get; set; }
-            public float Density { get; set; }
+		sealed class InternalGestureDetector : GestureDetector.SimpleOnGestureListener
+		{
+			public Action<MotionEvent> TapAction { get; set; }
+			public float Density { get; set; }
 
-            public override bool OnSingleTapUp(MotionEvent e)
-            {
-                TapAction?.Invoke(e);
-                return true;
-            }
-        }
-    }
+			public override bool OnSingleTapUp(MotionEvent e)
+			{
+				TapAction?.Invoke(e);
+				return true;
+			}
+		}
+	}
 }

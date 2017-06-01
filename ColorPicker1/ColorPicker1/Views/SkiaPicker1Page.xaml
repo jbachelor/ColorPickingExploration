@@ -3,6 +3,7 @@
 	xmlns="http://xamarin.com/schemas/2014/forms"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 	xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
+    xmlns:g="clr-namespace:ColorPicker1.Views;assembly=ColorPicker1"
 	xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
 	prism:ViewModelLocator.AutowireViewModel="True"
 	x:Class="ColorPicker1.Views.SkiaPicker1Page">
@@ -18,21 +19,25 @@
 					Height="*" />
 			</Grid.RowDefinitions>
 			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="3*"/>
-				<ColumnDefinition Width="*" />
+				<ColumnDefinition
+					Width="3*" />
+				<ColumnDefinition
+					Width="*" />
 			</Grid.ColumnDefinitions>
 			<skia:SKCanvasView
 				Grid.Row="0"
 				Grid.ColumnSpan="2"
 				x:Name="ColorSpectrumCanvas"
-				PaintSurface="ColorSpectrumCanvas_PaintSurface" />
+				PaintSurface="ColorSpectrumCanvas_PaintSurface"
+				g:Gesture.Tapped="{Binding CanvasTappedCommand}">
+			</skia:SKCanvasView>
 			<Slider
 				Grid.Row="1"
 				Grid.Column="0"
 				BackgroundColor="Aqua"
-				x:Name="LightnessSlider" 
+				x:Name="LightnessSlider"
 				Maximum="100"
-				Minimum="0" 
+				Minimum="0"
 				Margin="20"
 				HorizontalOptions="FillAndExpand"
 				VerticalOptions="FillAndExpand"
