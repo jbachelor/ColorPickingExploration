@@ -6,118 +6,87 @@ using Xamarin.Forms;
 
 namespace ColorPicker1.Views
 {
-    public partial class SkiaPicker1Page : ContentPage
-    {
-        public SkiaPicker1Page()
-        {
-            InitializeComponent();
-        }
+	public partial class SkiaPicker1Page : ContentPage
+	{
 
-        private void ColorSpectrumCanvas_PaintSurface(object sender, SkiaSharp.Views.Forms.SKPaintSurfaceEventArgs e)
-        {
-            CreateHslSpectrum(e);
-            //CreateRgbSpectrum(e);
-        }
+		public int luminosity = 50;
 
-        private void CreateRgbSpectrum(SKPaintSurfaceEventArgs e)
-        {
-            //SKImageInfo info = e.Info;
-            //SKSurface surface = e.Surface;
-            //SKCanvas canvas = e.Surface.Canvas;
-            //float halvsies = Math.Min(info.Height, info.Width) * 0.5f;
+		public SkiaPicker1Page()
+		{
+			InitializeComponent();
+			LightnessSlider.Value = luminosity;
+		}
 
-            //Debug.WriteLine($"**** {this.GetType().Name}.{nameof(ColorSpectrumCanvas_PaintSurface)}:  info.Height={info.Height}, info.Width={info.Width}, halvsies={halvsies}");
+		private void ColorSpectrumCanvas_PaintSurface(object sender, SKPaintSurfaceEventArgs e)
+		{
+			CreateHslSpectrum(e);
+		}
 
-            //canvas.Clear();
+		private void CreateHslSpectrum(SKPaintSurfaceEventArgs e)
+		{
+			SKImageInfo info = e.Info;
+			SKSurface surface = e.Surface;
+			SKCanvas canvas = e.Surface.Canvas;
+			float halvsies = Math.Min(info.Height, info.Width) * 0.5f;
 
-            //int red = 1;
-            //int green = 1;
-            //int blue = 1;
+			Debug.WriteLine($"**** {this.GetType().Name}.{nameof(CreateHslSpectrum)}:  info.Height={info.Height}, info.Width={info.Width}, halvsies={halvsies}");
 
-            //float increment = 8f;
+			canvas.Clear();
 
-            //float left = 0f;
-            //float top = 0f;
-            //float right = increment;
-            //float bottom = increment;
+			int hue;
+			int saturation;
 
-            //using (SKPaint paint = new SKPaint())
-            //{
-            //    for (int i = 1; i <= 100; i++)
-            //    {
-            //        hue = i;
-            //        for (int j = 1; j <= 360; j++)
-            //        {
-            //            saturation = j;
-            //            var color = SKColor.FromHsl(hue, saturation, lightness);
+			float widthIncrement = info.Width / 361;
+			float heightIncrement = info.Height / 101;
 
-            //            SKRect colorRect = new SKRect(left, top, right, bottom);
-            //            paint.Color = color;
+			float left = 0f;
+			float top = 0f;
+			float right = widthIncrement;
+			float bottom = heightIncrement;
 
-            //            canvas.DrawRect(colorRect, paint);
+			using (SKPaint paint = new SKPaint())
+			{
+				for (int i = 0; i <= 360; i++)
+				{
+					//Debug.WriteLine($"\n\n**** {this.GetType().Name}.{nameof(CreateHslSpectrum)}:  Next color column:  S={i}\n");
+					hue = i;
 
-            //            top += increment;
-            //            bottom += increment;
-            //        }
+					for (int j = 0; j <= 100; j++)
+					{
+						saturation = j;
+						var color = SKColor.FromHsl(hue, saturation, luminosity);
 
-            //        top = 0f;
-            //        bottom = increment;
+						//Debug.WriteLine($"\t**** {this.GetType().Name}.{nameof(CreateHslSpectrum)}:  H={h}, S={s}, L={luminosity}. RGB = {color.Red}, {color.Green}, {color.Blue}");
 
-            //        left += increment;
-            //        right += increment;
-            //    }
-            //}
-        }
+						SKRect colorRect = new SKRect(left, top, right, bottom);
+						paint.Color = color;
 
-        private void CreateHslSpectrum(SKPaintSurfaceEventArgs e)
-        {
-            SKImageInfo info = e.Info;
-            SKSurface surface = e.Surface;
-            SKCanvas canvas = e.Surface.Canvas;
-            float halvsies = Math.Min(info.Height, info.Width) * 0.5f;
+						canvas.DrawRect(colorRect, paint);
 
-            Debug.WriteLine($"**** {this.GetType().Name}.{nameof(ColorSpectrumCanvas_PaintSurface)}:  info.Height={info.Height}, info.Width={info.Width}, halvsies={halvsies}");
+						top += heightIncrement;
+						bottom += heightIncrement;
+					}
 
-            canvas.Clear();
+					top = 0f;
+					bottom = heightIncrement;
 
-            int hue;
-            int saturation;
-            int lightness = 70;
+					left += widthIncrement;
+					right += widthIncrement;
+				}
+			}
+		}
 
-            float heightIncrement = 4f; //info.Height/360;
-            float widthIncrement = 8f; // info.Width/100;
+		void OnSliderValueChanged(object sender, ValueChangedEventArgs e)
+		{
+			int oldVal = (int)Math.Round(e.OldValue, 0);
+			int newVal = (int)Math.Round(e.NewValue, 0);
 
-            float left = 0f;
-            float top = 0f;
-            float right = widthIncrement;
-            float bottom = heightIncrement;
-
-            using (SKPaint paint = new SKPaint())
-            {
-                for (int i = 1; i <= 100; i++)
-                {
-                    hue = i;
-                    for (int j = 1; j <= 360; j++)
-                    {
-                        saturation = j;
-                        var color = SKColor.FromHsl(hue, saturation, lightness);
-
-                        SKRect colorRect = new SKRect(left, top, right, bottom);
-                        paint.Color = color;
-
-                        canvas.DrawRect(colorRect, paint);
-
-                        top += heightIncrement;
-                        bottom += heightIncrement;
-                    }
-
-                    top = 0f;
-                    bottom = heightIncrement;
-
-                    left += widthIncrement;
-                    right += widthIncrement;
-                }
-            }
-        }
-    }
+			if (oldVal != newVal)
+			{
+				Debug.WriteLine($"**** {this.GetType().Name}.{nameof(OnSliderValueChanged)}:  {newVal}");
+				luminosity = newVal;
+				ColorSpectrumCanvas.InvalidateSurface();
+			}
+		}
+	}
 }
