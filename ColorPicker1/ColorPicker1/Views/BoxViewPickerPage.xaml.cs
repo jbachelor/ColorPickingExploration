@@ -12,48 +12,16 @@ namespace ColorPicker1.Views
         public BoxViewPickerPage()
         {
             InitializeComponent();
-
-            Stopwatch swatch = new Stopwatch();
-            swatch.Start();
+            Debug.WriteLine($"**** {this.GetType().Name}.{nameof(BoxViewPickerPage)}:  ctor");
 
             StackLayout colorStack = CreateColorStack();
-            StackLayout brightnessSliderStack = CreateBrightnessSliderLayout();
-
-            //OuterStackLayout.Children.Add(colorStack);
-            //OuterStackLayout.Children.Add(brightnessSliderStack);
-
-            Label timeLabel = CreateTimeLabel();
-            //OuterStackLayout.Children.Add(timeLabel);
-            
-        }
-
-        private Label CreateTimeLabel()
-        {
-            return new Label
-            {
-                Text = "timer label"
-            };
-        }
-
-        private StackLayout CreateBrightnessSliderLayout()
-        {
-            var sliderLayout = new StackLayout
-            {
-                Orientation = StackOrientation.Horizontal
-            };
-
-            var slider = new Slider(0.0, 100.0, 50.0);
-            var label = new Label();
-            label.SetBinding(Label.TextProperty, slider.Value.ToString());
-
-            sliderLayout.Children.Add(slider);
-            sliderLayout.Children.Add(label);
-
-            return sliderLayout;
+            UpperStackLayout.Children.Add(colorStack);
         }
 
         private StackLayout CreateColorStack()
         {
+            Debug.WriteLine($"**** {this.GetType().Name}.{nameof(CreateColorStack)}");
+
             var swatch = new Stopwatch();
             swatch.Start();
 
@@ -66,7 +34,7 @@ namespace ColorPicker1.Views
                 HeightRequest = 100
             };
 
-            for (int i = 1; i <= 100; i += 1)
+            for (int i = 1; i <= 100; i += 2)
             {
                 var nextRowStack = new StackLayout
                 {
@@ -76,19 +44,21 @@ namespace ColorPicker1.Views
 
                 var saturation = (double)i / 100.0;
 
-                for (int j = 1; j <= 360; j += 6)
+                for (int j = 1; j <= 360; j += 3)
                 {
                     var hue = (double)j / 360.0;
                     var hsColor = Color.FromHsla(hue, saturation, fixedBrightness);
 
-                    var colorBox = new BoxView
+                    var colorButton = new Button
                     {
-                        Color = hsColor,
-                        HeightRequest = 10,
-                        WidthRequest = 10
+                        BackgroundColor = hsColor,
+                        HeightRequest = 3,
+                        WidthRequest = 4
                     };
 
-                    nextRowStack.Children.Add(colorBox);
+                    
+
+                    nextRowStack.Children.Add(colorButton);
                 }
 
                 verticalStack.Children.Add(nextRowStack);

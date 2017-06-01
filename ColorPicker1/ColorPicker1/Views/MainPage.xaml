@@ -12,6 +12,14 @@
                 Command="{Binding NavToBoxViewPickerCommand}" />
         <Button Text="Static Picker"
                 Command="{Binding NavToStaticPickerCommand}" />
+        <Button Text="SkiaSharp Playspace 1"
+                Command="{Binding NavToSkiaPlay1Command}" />
+        <Button Text="Tap to Toggle Fill"
+                Command="{Binding NavToTapToFillPageCommand}" />
+        <Button Text="HSL vs HSV Cage Fight"
+                Command="{Binding NavToColorExplorerPageCommand}" />
+        <Button Text="SkiaSharp Take 1"
+                Command="{Binding NavToSkiaPicker1PageCommand}" />
     </StackLayout>
 </ContentPage>
     

@@ -16,6 +16,10 @@ namespace ColorPicker1.ViewModels
 
         public DelegateCommand NavToBoxViewPickerCommand { get; set; }
         public DelegateCommand NavToStaticPickerCommand { get; set; }
+        public DelegateCommand NavToSkiaPlay1Command { get; set; }
+        public DelegateCommand NavToTapToFillPageCommand { get; set; }
+        public DelegateCommand NavToColorExplorerPageCommand { get; set; }
+        public DelegateCommand NavToSkiaPicker1PageCommand { get; set; }
 
         private string _title;
         public string Title
@@ -32,6 +36,10 @@ namespace ColorPicker1.ViewModels
 
             NavToBoxViewPickerCommand = new DelegateCommand(NavToBoxViewPicker);           
             NavToStaticPickerCommand = new DelegateCommand(NavToStaticPickerAsync);
+            NavToSkiaPlay1Command = new DelegateCommand(NavToSkiaPlay1);
+            NavToTapToFillPageCommand = new DelegateCommand(NavToTapToFillPage);
+            NavToColorExplorerPageCommand = new DelegateCommand(NavToColorExplorerPage);
+            NavToSkiaPicker1PageCommand = new DelegateCommand(NavToSkiaPicker1Page);
 
             Title = "Color Picker Menu";
         }
@@ -51,6 +59,29 @@ namespace ColorPicker1.ViewModels
         {
             Debug.WriteLine($"**** {this.GetType().Name}.{nameof(NavToStaticPickerAsync)}");
             await _navigationService.NavigateAsync(nameof(StaticPickerPage));
+        }
+
+        private async void NavToSkiaPlay1()
+        {
+            Debug.WriteLine($"**** {this.GetType().Name}.{nameof(NavToSkiaPlay1)}");
+            await _navigationService.NavigateAsync(nameof(SkiaPlay1));
+        }
+
+        private async void NavToTapToFillPage()
+        {
+            Debug.WriteLine($"**** {this.GetType().Name}.{nameof(NavToTapToFillPage)}");
+            await _navigationService.NavigateAsync(nameof(TapToFillPage));
+        }
+        private async void NavToColorExplorerPage()
+        {
+            Debug.WriteLine($"**** {this.GetType().Name}.{nameof(NavToColorExplorerPage)}");
+            await _navigationService.NavigateAsync(nameof(ColorExplorerPage));
+        }
+
+        private async void NavToSkiaPicker1Page()
+        {
+            Debug.WriteLine($"**** {this.GetType().Name}.{nameof(NavToSkiaPicker1Page)}");
+            await _navigationService.NavigateAsync(nameof(SkiaPicker1Page));
         }
 
         #region INavigationAware

@@ -21,6 +21,10 @@ namespace ColorPicker1
             Container.RegisterTypeForNavigation<MainPage>();
             Container.RegisterTypeForNavigation<BoxViewPickerPage>();
             Container.RegisterTypeForNavigation<StaticPickerPage>();
+            Container.RegisterTypeForNavigation<SkiaPlay1>();
+            Container.RegisterTypeForNavigation<TapToFillPage>();
+            Container.RegisterTypeForNavigation<ColorExplorerPage>();
+            Container.RegisterTypeForNavigation<SkiaPicker1Page>();
         }
     }
 }

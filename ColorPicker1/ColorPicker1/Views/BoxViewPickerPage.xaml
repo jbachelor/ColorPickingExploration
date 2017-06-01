@@ -5,12 +5,25 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="ColorPicker1.Views.BoxViewPickerPage"
              Title="{Binding Title}">
-    <Grid x:Name="OuterGrid">
+    <Grid x:Name="MainGrid" BackgroundColor="{Binding SelectedColor}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="3*" />
+            <RowDefinition Height="4*" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <StackLayout x:Name="UpperStackLayout"
+                     Grid.Row="0"
+                     BackgroundColor="Beige">
+        </StackLayout>
+        <StackLayout x:Name="LowerStackLayout"
+                     Grid.Row="1"
+                     BackgroundColor="Azure"
+                     VerticalOptions="Fill"
+                     HorizontalOptions="Fill">
+            <Label x:Name="SelectedColorLabel"
+                   HorizontalOptions="CenterAndExpand"
+                   Margin="10"                  
+                   Text="{Binding SelectedColorLabelText}"
+                   BackgroundColor="{Binding SelectedColor}" />
+        </StackLayout>
     </Grid>
 </ContentPage>
-    
